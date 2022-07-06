@@ -1,0 +1,85 @@
+<html>
+
+<head>
+  <title>
+  	-[ . . . ]-
+  </title>
+  <style type="text/css">
+    body, input {
+      background-color: black;
+      color: #edd;
+    }
+    hr {
+      border: 1px solid #555;
+    }
+    a {
+      color: #bbe;
+    }
+  </style>
+</head>
+
+<body>
+	<h1 id="title">
+  	-[ . . . ]-
+	</h1>
+	<div>
+		(placeholder, for in web browser tab)
+	</div>
+	<br/>
+	<div>
+		To set title, add ?t=title to end of URL.
+	</div>
+	<br/>
+	<div>
+		Or enter here: <input id="setTitle"/>
+	</div>
+  <br/>
+  <br/>
+  <hr/>
+	<div>
+		<a href="https://github.com/andrewrproper/browser-tab-placeholder" target="_blank" rel="noopener">GitHub</a>
+	</div>
+
+	<script type="text/javascript">
+		// https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+		const params = new Proxy(
+			new URLSearchParams(window.location.search), {
+				get: (searchParams, prop) => searchParams.get(prop)
+			}
+		);
+
+		function setTitleTo (title) {
+			let newTitle = "-[ " + title + " ]-";
+			document.title = newTitle;
+			document.getElementById("title").innerHTML = newTitle;
+		}
+		let input = document.getElementById("setTitle");
+			
+		console.debug(params);
+		let title = params.t;
+		if ( title !== undefined && title !== null && title !== "" ) {
+			console.debug("found title from params: "+title);
+			setTitleTo(title);
+			input.value = title;
+		} else {
+			console.debug("no title found from params");
+		}
+
+		input.addEventListener('change', function(event) {
+			let title = this.value;
+			if ( title !== undefined && title !== null && title !== "" ) {
+				console.debug("found title from text input: "+title);
+				setTitleTo(title);
+
+				let searchParams = new URLSearchParams(window.location.search);
+				searchParams.set("t", title);
+				window.location.search = searchParams;
+			} else {
+				console.debug("no title found from text input");
+			}
+		});
+		input.focus();
+	</script>
+</body>
+
+</html>
