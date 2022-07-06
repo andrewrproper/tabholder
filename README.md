@@ -1,6 +1,8 @@
 
 # Browser Tab Placeholder
 
+![Screenshot, beside Vertical Tabs Reloaded](img/vertical-tabs-reloaded.jpg)
+
 [GitHub](https://github.com/andrewrproper/browser-tab-placeholder)
 
 ## Purpose
@@ -15,10 +17,10 @@ This is done using a very simple standalone local web page.
 
 This works well in Firefox with the 
 [Vertical Tabs Reloaded](https://addons.mozilla.org/en-CA/firefox/addon/vertical-tabs-reloaded/) 
-add-on.
+add-on, pictured in the screenshot above.
 
 ## Adding to Bookmarks Bar
 
-Adding a bookmark to this page, in your bookmarks bar, makes it easier to open
-the page quickly when needed.
+Add a bookmark to the page, in your bookmarks bar, to make it easier
+to open the page quickly when needed.
 
