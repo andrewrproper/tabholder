@@ -1,60 +1,159 @@
 <html>
 
 <head>
-
+	<meta charset="UTF-8">
 	<meta 
 		name="viewport" 
 		content="width=device-width, initial-scale=1.0" />
 
   <link rel="stylesheet" href="main.css">
-  <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+  <link id="favicon" rel="icon" type="image/x-icon" />
   <title>
   	|| || 
   </title>
 </head>
 
-<body>
-	<div>
-		<div id="title-wrap">
-			<div id="title">
-				. . .
+<body class="dark-theme">
+	<div id="header">
+		<div id="title-wrap-outer-1">
+			<div id="title-wrap-outer-2">
+				<div id="icon-svg-wrap-placeholder">
+					<a id="icon-svg-link"><img id="icon-svg"/></a>
+				</div>
+				<div id="title-wrap-inner">
+					<div id="title"> . . .  </div>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div>
-		Tab Name: &nbsp; <input tabindex = "1" id="set-title"/>
-	</div>
-	<div>
-		<a id="open-button" tabindex="2">Open Another Tab</a>
-	</div>
-	<div>
-		<a id="open-button-same-title" tabindex="3">Duplicate This Tab</a>
+		<div id="header-end-internal"></div>
+  </div>
+	<div id="header-spacer"></div>
+
+	<div id="content">
+
+		<div class="box">
+			<label for="set-title">Title</label>
+			<input tabindex = "1" id="set-title"/>
+		</div>
+
+		<div class="grid-container">
+			<div class="cell">
+				<a id="open-button-same-title" tabindex="3">Duplicate This Tab</a>
+			</div>
+			<div class="cell">
+				<a id="open-button" tabindex="2">Open Another Tab</a>
+			</div>
+
+			<div class="cell">
+				<label for="title-size">Title Size: <span id="title-size-value"></span> em</label>
+				<input type="range" class="range" id="title-size" min="1" step="0.1" max="16"></input>
+			</div>
+
+
+			<div class="cell">
+				<label for="open-icon-select">Icon</label>
+				<button id="open-icon-select" class="icon-button"></button>
+			</div>
+
+			<div class="cell">
+				<label for="icon-rotation-range">Icon Rotation: <span id="icon-rotation-range-value"></span> &deg;</label>
+				<input type="range" class="range" id="icon-rotation-range" min="0" step="5" max="355"></input>
+			</div>
+
+			<div class="cell">
+				<label for="icon-stroke-width">Icon Stroke Width: <span id="icon-stroke-width-value"></span></label>
+				<input type="range" class="range" id="icon-stroke-width" min="0" step="0.25" max="20"></input>
+			</div>
+
+
+
+			<div class="cell">
+				<label for="icon-fg-color-select">Icon FG Color</label>
+				<button id="open-fg-color-select" class="icon-button"></button>
+			</div>
+
+			<div class="cell">
+				<label for="icon-bg-color-select">Icon BG Color</label>
+				<button id="open-bg-color-select" class="icon-button"></button>
+			</div>
+
+
+
+			<div class="cell">
+				<label for="open-title-prefix-icon-select">Title Prefix Icon</label>
+				<button id="open-title-prefix-icon-select" class="icon-button"></button>
+			</div>
+
+			<div class="cell">
+				<label for="open-title-suffix-icon-select">Title Suffix Icon</label>
+				<button id="open-title-suffix-icon-select" class="icon-button"></button>
+			</div>
+
+			<div class="cell">
+				<label for="theme-switch">Page Theme</label>
+				<button id="theme-switch">&#127769; Dark</button>
+			</div>
+		
+		</div>
+
+
+		<div class="float-container">
+
+			<div class="cell-float">
+				<h3>Version</h3>
+				<ul>
+					<li class="version">v2.0.0</li>
+				</ul>
+				<div class="cell-sep">
+					<a href="https://github.com/andrewrproper/browser-tab-placeholder" target="_blank" rel="noopener"><h3>GitHub</h3></a>
+				</div>
+				<div class="cell-sep">
+					<a href="https://andrewrproper.github.io/browser-tab-placeholder" target="_blank" rel="noopener"><h3>Website</h3></a>
+				</div>
+			</div>
+
+			<div class="cell-float">
+				<h3>Features</h3>
+				<ul>
+					<li>Use this page as a separator between other tabs, in your browser. </li>
+					<li>Give the page a name, if you want. The name will be shown in the browser tab, too.</li>
+					<li>It works especially well with vertical tabs. </li>
+					<li>Use it to separate other tabs by subject.</li>
+					<li>Bookmark the page, using it as a separator between other bookmarks.</li>
+				</ul>
+			</div>
+
+			<div class="cell-float">
+				<h4>Older Versions</h4>
+				<ul>
+					<li><a href="./v1.0.0/" class="version">v1.0.0</a></li>
+				</ul>
+			</div>
+
+			<div class="float-container-end"></div>
+		</div>
+
 	</div>
 
-	<button id="about-button" tabindex="4">About</button>
-	<div id="about-html" style=" display: none; ">
-		<div id='app-name'>
-			Browser Tab Placeholder
+	<div id="icon-select-dialog" class="hidden modal-dialog">
+		<h2>Select Icon</h2>
+		<button class="close-button" id="icon-select-dialog-close">x</button>
+		<div class="modal-content" id="icon-select-content">
+
 		</div>
-		<div id='features'>
-			Features:
-			<ul>
-				<li>Use this page as a separator between other tabs, in your browser. </li>
-				<li>Give the page a name, if you want. The name will be shown in the browser tab, too.</li>
-				<li>It works especially well with vertical tabs. </li>
-				<li>Use it to separate other tabs by subject.</li>
-				<li>Bookmark the page, using it as a separator between other bookmarks.</li>
-			</ul>
-		</div>
-		<div id="footer">
-			<a href="https://github.com/andrewrproper/browser-tab-placeholder" target="_blank" rel="noopener">GitHub</a>
-			&nbsp; | &nbsp;
-			<a href="https://andrewrproper.github.io/browser-tab-placeholder" target="_blank" rel="noopener">Website</a>
-		</div>
-		<div id="end-footer"></div>
 	</div>
 
-	<script type="text/javascript" src="script.js"></script>
+	<div id="color-select-dialog" class="hidden modal-dialog">
+		<h2>Select Color</h2>
+		<button class="close-button" id="color-select-dialog-close">x</button>
+		<div class="modal-content" id="color-select-content">
+
+		</div>
+	</div>
+
+
+	<script type="text/javascript" src="js/globals.js"></script>
+	<script type="module" src="js/main.js"></script>
 </body>
 
 </html>

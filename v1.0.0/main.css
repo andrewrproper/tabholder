@@ -1,0 +1,94 @@
+
+#title-wrap {
+  font-size: min(14vw, 5em);
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 0.5em;
+  border: 0.1em solid #edd;
+}
+#title {
+  border-right: 0.1em solid #edd;
+  border-left: 0.1em solid #edd;
+  margin-right: 0.2em;
+  margin-left: 0.2em;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: inline-block;
+  font-family: sans-serif;
+  padding-top: 0;
+  padding-bottom: 0;
+  word-break: break-word;
+}
+
+html, body, input {
+  background-color: #1a1a1a;
+  color: #edd;
+}
+body, input {
+  margin: 0px;
+  padding: 1em;
+  font-size: 105%;
+}
+button {
+  color: #edd;
+  background-color: #222;
+  border: 3px solid #555;
+  padding: 0.5em;
+  cursor: pointer;
+}
+hr {
+  border: 1px solid #555;
+}
+a {
+  color: #bbe;
+  text-decoration: none;
+}
+
+#set-title {
+  margin-top: 1em;
+  display: block;
+  width: 100%;
+}
+
+#app-name {
+  font-weight: bold; 
+  margin-bottom: 1em;
+}
+#features {
+
+}
+
+#about-button {
+
+}
+#about-html {
+  margin-top: 1em;
+}
+
+#footer {
+
+}
+#open-button,
+#open-button-same-title {
+  cursor: pointer;
+  display: block;
+  margin-top: 4em;
+  margin-bottom: 3em;
+  padding: 1em;
+  background-color: #222;
+  border: 3px solid #555;
+  text-align: center;
+}
+#end-footer {
+  /*
+  height: 50vh;
+  */
+  /*
+  clear: both; 
+  height: 100vh;
+  overflow-y: hidden;
+  */
+}
