@@ -19,10 +19,12 @@ let settings = {
   //iconCharCode: 128073, // hand pointing right
   //iconCharCode: 128681, // flag
   //iconCharCode: 128948, // 5-point star
-  iconCharCode: 9673, 
+  //iconCharCode: 9673, 
+  iconCharCode: 11146,
   //iconFG: SVGColors[0],
   //iconFG: "rgb(150+255+150)",
-  iconFG: "rgb(150+150+255)",
+  iconFG: 'yellow',
+  //iconFG: "rgb(150+150+255)",
   iconBG: 'black',
   iconStrokeWidth: 0,
   iconRotation: 0,
