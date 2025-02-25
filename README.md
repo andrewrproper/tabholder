@@ -1,5 +1,5 @@
 
-# Browser Tab Placeholder
+# TabHolder
 
 [Try it out](https://andrewrproper.github.io/browser-tab-placeholder/)
 
