@@ -143,6 +143,7 @@ input[type="range"] {
 
 #toolbar {
   position: absolute;
+  top: var(--icon-outer-height);
   right: 2rem;
   z-index: 50000;
   opacity: 0.6;
