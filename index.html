@@ -24,7 +24,17 @@
 					<div id="title"> . . .  </div>
 				</div>
 			</div>
-      <button id="settings-button" title="Toggle Settings">&#128736;</button>
+			<div id="toolbar">
+				<button id="settings-button" 
+					aria-label="Toggle Settings"
+					title="Toggle Settings">&#128736;</button>
+				<button id="open-button-same-title" 
+					aria-label="Duplicate This Tab"
+					title="Duplicate This Tab">&#8663;</button>
+				<button id="open-button" 
+					aria-label="Open Another Tab"
+					title="Open Another Tab">&#8599;</button>
+			</div>
 		</div>
 		<div id="header-end-internal"></div>
   </div>
@@ -39,12 +49,6 @@
 		</div>
 
 		<div class="grid-container">
-			<div class="cell">
-				<a id="open-button-same-title" tabindex="3">Duplicate This Tab</a>
-			</div>
-			<div class="cell">
-				<a id="open-button" tabindex="2">Open Another Tab</a>
-			</div>
 
 			<div class="cell">
 				<label for="title-size">Title Size: <span id="title-size-value"></span> em</label>
@@ -100,17 +104,6 @@
 
 
 		<div class="float-container">
-
-			<!--
-			<div class="cell-float">
-				<div>
-					<a href="https://github.com/andrewrproper/tabholder" target="_blank" rel="noopener"><h3>GitHub</h3></a>
-				</div>
-				<div class="cell-sep">
-					<a href="https://aproper.dev/tabholder" target="_blank" rel="noopener"><h3>Website</h3></a>
-				</div>
-			</div>
-			-->
 
 			<div class="cell-float" id="features">
 				<h3>Features</h3>

@@ -27,6 +27,11 @@
   --float-cell-min-width: 15em;
 
   --content-height: calc(95vh - var(--header-max-height));
+
+  --toolbar-button-font-size: min(4rem, max(10vw, 2rem));
+  --toolbar-button-width: min(5rem, max(12vw, 2rem));
+  --toolbar-button-height: min(5rem, max(12vw, 2rem));
+  --toolbar-width: calc(var(--toolbar-button-width) * 3.5 + 1rem);
 }
 
 body.dark-theme {
@@ -121,19 +126,25 @@ input[type="range"] {
   font-family: sans-serif;
 }
 
-#settings-button {
-  color: var(--fg-color);
+#toolbar {
   position: absolute;
   right: 2rem;
-  font-size: 3rem;
-  line-height: 3rem;
+  z-index: 50000;
+  opacity: 0.7;
+}
+#toolbar button {
+  color: var(--fg-color);
+  font-size: var(--toolbar-button-font-size);
+  width: var(--toolbar-button-width);
+  height: var(--toolbar-button-height);
+  line-height: calc(var(--toolbar-button-font-size) - 0.5rem );
   margin-top: 1rem;
   padding-top: 0rem;
   padding-left: 0rem;
   padding-right: 0.25rem;
   padding-bottom: 0.5rem;
-  z-index: 50000;
-  opacity: 0.7;
+}
+#settings-button {
 }
 
 #content {
@@ -184,7 +195,7 @@ a {
 #set-title {
   margin-top: 1em;
   display: block;
-  width: 90%;
+  width: calc(100% - var(--toolbar-width));
 }
 
 #app-name {
@@ -198,31 +209,41 @@ a {
 }
 #open-button,
 #open-button-same-title {
+  /*
   cursor: pointer;
   display: block;
+  */
   /*
   margin-top: 2em;
   margin-bottom: 2em;
   */
+  /*
   padding: 1em;
   background-color: var(--input-bg-color);
   border: 3px solid var(--input-border-color);
   text-align: center;
+  */
 }
 
 .grid-container {
   margin: 1vw;
+  /*
   border: 1px solid var(--dim-border-color);
+  */
   display: grid;
-  grid-gap: 0.5em;
+  grid-gap: 0rem;
+  grid-template-columns: repeat(auto-fill, calc(var(--grid-cell-width) + 1.5rem));
+  /*
   grid-template-columns: repeat(auto-fill, minmax(var(--grid-cell-width), 1fr));
+  */
 }
-.box,
-.cell {
+.box {
   padding: 0.5em;
 }
 .cell {
   width: var(--grid-cell-width);
+  padding: 0.75rem;
+  border: 1px solid var(--dim-border-color);
 }
 .box,
 .cell-float {
