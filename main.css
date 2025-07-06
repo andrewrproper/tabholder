@@ -32,6 +32,7 @@
   --toolbar-button-width: min(5rem, max(12vw, 2rem));
   --toolbar-button-height: min(5rem, max(12vw, 2rem));
   --toolbar-width: calc(var(--toolbar-button-width) * 3.5 + 1rem);
+
 }
 
 body.dark-theme {
@@ -48,6 +49,9 @@ body.dark-theme {
 
   --icon-select-bg-color: black;
   --icon-select-fg-color: white;
+
+  --icon-svg-border-grey-value: 70;
+  --icon-svg-border-color: rgba(var(--icon-svg-border-grey-value),var(--icon-svg-border-grey-value),var(--icon-svg-border-grey-value),0.7);
 }
 
 body.light-theme {
@@ -64,6 +68,9 @@ body.light-theme {
 
   --icon-select-bg-color: white;
   --icon-select-fg-color: black;
+
+  --icon-svg-border-grey-value: 190;
+  --icon-svg-border-color: rgba(var(--icon-svg-border-grey-value),var(--icon-svg-border-grey-value),var(--icon-svg-border-grey-value),0.7);
 }
 
 label {
@@ -94,14 +101,19 @@ input[type="range"] {
   top: var(--icon-space-from-edge);
   right: var(--icon-space-from-edge);
   z-index: 500;
-  border: var(--border-size) dotted rgba(160,160,160,0.8);
+  /*
+  border: var(--border-size) dotted var(--icon-svg-border-color);
+  */
+  border: var(--border-size) solid var(--icon-svg-border-color);
   cursor: pointer;
   height: var(--icon-size);
   width: var(--icon-size);
 }
 
 #title-wrap-outer-1 {
+  /*
   border: var(--border-size) solid var(--border-color);
+  */
   min-height: var(--icon-outer-height);
   background-color: var(--bg-color);
 }
@@ -130,7 +142,7 @@ input[type="range"] {
   position: absolute;
   right: 2rem;
   z-index: 50000;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 #toolbar button {
   color: var(--fg-color);
@@ -153,11 +165,18 @@ input[type="range"] {
   max-height: var(--content-height);
   */
   overflow: auto;
+  margin-top: var(--content-margin);
+  /*
   margin-right: var(--content-margin);
   margin-left: var(--content-margin);
+  margin-top: var(--content-margin);
+  */
+  border-top: var(--content-border-size) solid var(--border-color);
+  /*
   border-right: var(--content-border-size) solid var(--border-color);
   border-left: var(--content-border-size) solid var(--border-color);
   border-bottom: var(--content-border-size) solid var(--border-color);
+  */
 }
 
 html, body, input, select {
@@ -301,11 +320,11 @@ h1, h2, h3, h4, h5 {
 
 
 .icon-button {
-  min-width: 1.5em;
-  min-height: 1.5em;
+  min-width: 4rem;
+  min-height: 4rem;
   margin: 0;
   padding: 0;
-  font-size: 220%;
+  font-size: 250%;
   background-color: var(--icon-select-bg-color);
 }
 
