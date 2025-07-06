@@ -120,7 +120,10 @@ input[type="range"] {
 #title-wrap-outer-2 {
   background-color: var(--bg-color);
   max-height: var(--header-max-height);
+  /*
   overflow: auto;
+  */
+  overflow: visible;
 }
 #title-wrap-inner {
   padding-bottom: 0.3em;
@@ -160,6 +163,7 @@ input[type="range"] {
 }
 
 #content {
+  background-color: var(--bg-color);
   position: relative;
   /*
   max-height: var(--content-height);
