@@ -20,16 +20,19 @@ let settings = {
   //iconCharCode: 128681, // flag
   //iconCharCode: 128948, // 5-point star
   //iconCharCode: 9673, 
-  iconCharCode: 11146,
+  //iconCharCode: 11146, // arrow in circle
+  iconCharCode: 11162, // half-filled arrow
+
   //iconFG: SVGColors[0],
   //iconFG: "rgb(150+255+150)",
-  iconFG: 'yellow',
+  //iconFG: 'yellow',
+  iconFG: 'cyan',
   //iconFG: "rgb(150+150+255)",
   iconBG: 'black',
   iconStrokeWidth: 0,
   iconRotation: 0,
 
-  titleSize: 3, // em
+  titleSize: 6.4, // em
   //titlePrefixChars: [ 11166 ],
   //titleSuffixChars: [ 11164 ],
   titlePrefixChars: [ 9655 ],

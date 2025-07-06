@@ -1,0 +1,11 @@
+{
+  "name": "TabHolder",
+  "version": "0.1.0",
+  "scripts" : {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "dev": "npx http-server ./ -p 2020"
+  },
+  "devDependencies": {
+    "jest": "^30.0.4"
+  }
+}

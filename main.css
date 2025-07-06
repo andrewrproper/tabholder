@@ -23,6 +23,8 @@
     - var(--body-padding) 
   );
 
+  --settings-button-top: calc(var(--icon-outer-height) - 8rem);
+
   --grid-cell-width: 15em;
   --float-cell-min-width: 15em;
 
@@ -30,10 +32,10 @@
 }
 
 body.dark-theme {
-  --border-color: #ccc;
+  --border-color: #555;
   --dim-border-color: #333;
   --bg-color: #1a1a1a;
-  --fg-color: #fff;
+  --fg-color: #eee;
 
   --input-bg-color: #222;
   --input-fg-color: #edd;
@@ -46,7 +48,7 @@ body.dark-theme {
 }
 
 body.light-theme {
-  --border-color: #666;
+  --border-color: #aaa;
   --dim-border-color: #ddd;
   --bg-color: #ddd;
   --fg-color: black;
@@ -119,6 +121,21 @@ input[type="range"] {
   padding-bottom: 0;
   word-break: break-all;
   font-family: sans-serif;
+}
+
+#settings-button {
+  position: absolute;
+  top: var(--settings-button-top);
+  left: 1rem;
+  font-size: 3rem;
+  line-height: 3rem;
+  margin: 0px;
+  padding-top: 0rem;
+  padding-left: 0rem;
+  padding-right: 0.25rem;
+  padding-bottom: 0.5rem;
+  z-index: 50000;
+  opacity: 0.7;
 }
 
 #content {
@@ -363,3 +380,6 @@ h1, h2, h3, h4, h5 {
   display: none;
 }
 
+#features {
+
+}

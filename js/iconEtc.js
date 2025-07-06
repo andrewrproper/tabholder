@@ -418,5 +418,13 @@ export const initTitle = () => {
   if ( titleSizeValue ) titleSizeValue.innerHTML = settings.titleSize;
 
 
+  const settingsButton = document.getElementById("settings-button");
+  const contentDiv = document.getElementById("content");
+  settingsButton.addEventListener('click', (event) => {
+    if ( contentDiv.classList.contains("hidden") ) contentDiv.classList.remove("hidden");
+    else contentDiv.classList.add("hidden");
+  });
+
+
  
 }
