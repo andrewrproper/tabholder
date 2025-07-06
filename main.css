@@ -23,8 +23,6 @@
     - var(--body-padding) 
   );
 
-  --settings-button-top: calc(var(--icon-outer-height) - 8rem);
-
   --grid-cell-width: 15em;
   --float-cell-min-width: 15em;
 
@@ -49,7 +47,7 @@ body.dark-theme {
 
 body.light-theme {
   --border-color: #aaa;
-  --dim-border-color: #ddd;
+  --dim-border-color: #bbb;
   --bg-color: #ddd;
   --fg-color: black;
 
@@ -124,12 +122,12 @@ input[type="range"] {
 }
 
 #settings-button {
+  color: var(--fg-color);
   position: absolute;
-  top: var(--settings-button-top);
-  left: 1rem;
+  right: 2rem;
   font-size: 3rem;
   line-height: 3rem;
-  margin: 0px;
+  margin-top: 1rem;
   padding-top: 0rem;
   padding-left: 0rem;
   padding-right: 0.25rem;
@@ -186,7 +184,7 @@ a {
 #set-title {
   margin-top: 1em;
   display: block;
-  width: 100%;
+  width: 90%;
 }
 
 #app-name {
@@ -234,7 +232,7 @@ a {
 }
 .cell-float {
   min-width: var(--float-cell-min-width);
-  max-width: 30%;
+  max-width: 50%;
   float: left;
 }
 .float-container,
@@ -381,5 +379,5 @@ h1, h2, h3, h4, h5 {
 }
 
 #features {
-
+  opacity: 0.7;
 }
