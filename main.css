@@ -33,6 +33,7 @@
   --toolbar-button-height: min(5rem, max(12vw, 2rem));
   --toolbar-width: calc(var(--toolbar-button-width) * 3.5 + 1rem);
 
+  --links-max-width: 60rem;
 }
 
 body.dark-theme {
@@ -182,6 +183,7 @@ input[type="range"] {
   border-left: var(--content-border-size) solid var(--border-color);
   border-bottom: var(--content-border-size) solid var(--border-color);
   */
+  z-index: 1000;
 }
 
 html, body, input, select {
@@ -425,4 +427,52 @@ h1, h2, h3, h4, h5 {
 
 #features {
   opacity: 0.7;
+}
+
+#links {
+  border: var(--content-border-size) solid var(--border-color);
+  padding: 0.4rem;
+  margin: 1rem;
+  font-size: 8pt;
+  max-width: var(--links-max-width);
+  opacity: 0.85;
+  z-index: 501;
+  position: absolute;
+  background-color: var(--bg-color);
+}
+#links-title {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+#add-link {
+  float: right;
+  margin: 0;
+  margin-left: 1rem;
+}
+#links-list {
+  /*
+  border: var(--content-border-size) solid var(--border-color);
+  */
+}
+#links-list li {
+  padding: 0;
+}
+/*
+#links-list li:after {
+  content: ' \21d7 ';
+  margin-left: 0;
+  font-size: 1.5rem;
+}
+*/
+#links-list li button {
+  margin-left: 0.6rem;
+  margin-right: 0.6rem;
+  font-size: smaller;
+}
+#links-list li .popoutCharacter {
+  font-weight: bold;
+  padding-left: 0.1rem;
+  padding-right: 0.5rem;
+  font-size: 1.5rem;
 }

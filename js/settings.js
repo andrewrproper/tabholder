@@ -73,6 +73,21 @@ export const updateURLSearchParams = (useTitle) => {
   if ( settings.iconRotation ) searchParams.set("ir", settings.iconRotation);
   else searchParams.delete("ir");
 
+
+  if ( settings.links ) {
+    console.debug("storing settings.links:", settings.links);
+    const encodeData = { 
+      'l': [ ...settings.links] // convert the Set to an array
+     };
+    const jsonText = JSON.stringify(encodeData);
+    console.debug("setting jsonText in param.d:", jsonText);
+
+    const encodedJSON = encodeURIComponent(jsonText);
+    searchParams.set('d', encodedJSON);
+  }
+  else searchParams.delete('d');
+
+
   let newURL = new URL(window.location.href);
   newURL.search = searchParams;
 
@@ -94,6 +109,25 @@ export const initContentHeight = () => {
     content.style.height = newContentHeight + "px";
   }
 }
+
+export const addURLToSettings = (inURL) => {
+  if ( ! settings.links ) {
+    settings.links = [];
+  }
+  settings.links.push(inURL.toString());
+  applySettings();
+}
+
+export const removeURLFromSettings = (inURL) => {
+  if ( ! settings.links ) {
+    settings.links = [];
+  } else {
+    settings.links = settings.links.filter(item => item !== inURL.toString());
+  }
+  applySettings();
+}
+
+
 
 export const applySettings = () => {
 
