@@ -504,7 +504,8 @@ h1, h2, h3, h4, h5 {
   min-height: var(--link-row-height);
   display: flex;
   align-items: center;
-  padding-left: 0.5rem;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
   flex: calc(40 - var(--link-image-flex));
 }
 #links-list li .list-row button {
