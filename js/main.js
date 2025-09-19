@@ -77,37 +77,17 @@ function initSettingsFromURLParams () {
   if ( isSet(paramISW)  ) settings.iconStrokeWidth = paramISW;
   if ( isSet(paramIR)   ) settings.iconRotation = paramIR;
   if ( isSet(paramData)    ) {
-    console.debug('searchParam "d" content:', paramData)
     try {
-      //const base64 = decodeURIComponent(paramData);
-      //console.debug("base64 from paramData:", base64);
-      //const binaryString = atob(base64);
-      //console.debug("string from atob(base64):", binaryString);
-
-      //const utf8Encoded = binaryString
-      //  .split('')
-      //  .reduce((acc, next) =>
-      //    [...acc, next.charCodeAt(0)],
-      //    []
-      //  );
-      //console.debug("utf8Encoded:", utf8Encoded);
-
-      //const utf8Encoded = String.toCharCode(binaryString);
-      //const linksJSON = new TextDecoder().decode(utf8Encoded);
-      //const data = JSON.parse(linksJSON);
-
       const jsonText = decodeURIComponent(paramData);
       const data = JSON.parse(jsonText);
       console.debug('data from JSON Text from "d" param:', data);
-
       settings.links = [ ...data.l];
 
-
-      // apply settings.links to display links in UI
-      for (const linkURL of settings.links) {
-        addURLToListAsync(linkURL);
+      // display links in UI
+      for (const entry of settings.links) {
+        console.debug('add link to UI:', entry);
+        addURLToListAsync(new URL(entry.l), entry.t, entry.i);
       }
-
     }
     catch (error) {
       console.error('failed to parse searchParam "d" content:', { paramData: paramData, error: error})
@@ -167,83 +147,40 @@ function initOpenDuplicateButton () {
 }
 
 
-async function getURLDataAsync (inURL)
-{
-  const result = {
-    success: false,
-  };
-
-  try {
-    const response = await fetch(inURL);
-    if ( response.ok) {
-      const htmlContent = await response.text();
-
-      const parser = new DOMParser();
-      let htmlDoc = "";
-      try {
-        // firefox
-        htmlDoc = parser.parseFromString(htmlContent, 'text/html');
-      } catch {
-        // chrome
-        htmlDoc = parser.parseFromString(htmlContent, 'text/xml');
-      }
-
-      if ( ! htmlDoc ) {
-        alert('failed to parse htmlContent');
-        return result;
-      }
-
-      const headElements = htmlDoc.getElementsByTagName('head');
-      const titleElements = headElements[0]?.getElementsByTagName('title');
-
-      result.title = titleElements[0]?.textContent;
-
-      /*
-        <meta property="og:image" content="https://introvertdear.com/wp-content/uploads/2023/08/what-ive-learned-about-being-a-quiet-introvert-in-an-extroverted-workplace.jpg" />
-      */
-      const metaOgImage = headElements[0]?.querySelector('meta[property="og:image"]');
-      if ( metaOgImage ) {
-        const imageHref = metaOgImage.content;
-        result.headerImageHref = imageHref;
-      }
-
-      result.success = true;
-    }
-  }
-  catch {
-    // often a CORS error, but we want to continue
-  }
-
-  return result;
-}
-
-async function addURLToListAsync (inURL) {
-  const ulE = document.getElementById("links-list");
-  if ( ! ulE ) {
+async function addURLToListAsync (inURL, inURLTitle, imageHref) {
+  console.debug('adding URL to UI:', { inURL: inURL?.toString(), inURLTitle: inURLTitle });
+  const listE = document.getElementById("links-list");
+  if ( ! listE ) {
     alert("failed to find #links-list");
     return;
   } 
+
+  let useTitle = inURLTitle;
+  if (!useTitle) useTitle = inURL.toString();
 
   const aE = document.createElement('a');
   aE.href = inURL.toString();
   aE.target = "_blank";
   aE.rel = "noopener";
-
-  let urlData = await getURLDataAsync(inURL);
-  if ( ! urlData || ! urlData.success ) {
-    urlData = {};
-  }
-
-  const useTitle = urlData.title ?? inURL.toString();
   aE.title = useTitle;
+  aE.className = "title";
 
-  let anchorContent = useTitle;
-  if ( urlData.headerImageHref ) {
-    const imgE = document.createElement('img');
-    imgE.src = urlData.headerImageHref;
-    anchorContent = imgE
+  const flexItemE = document.createElement("div");
+  flexItemE.className = "flex-item";
+
+  const titleE = document.createElement("div");
+  titleE.innerHTML = useTitle;
+  titleE.className = "title-div";
+  flexItemE.append(titleE);
+  const domainText = inURL.hostname;
+  if ( domainText ) {
+    const domainE = document.createElement("div");
+    domainE.className = "link-domain";
+    domainE.innerHTML = domainText;
+    flexItemE.append(domainE);
   }
-  aE.append(anchorContent);
+  aE.append(flexItemE);
+
 
   let buttonE = document.createElement("button");
   buttonE.innerHTML = "x";
@@ -253,19 +190,46 @@ async function addURLToListAsync (inURL) {
   let spanE = document.createElement("span");
   spanE.className = "popoutCharacter";
   spanE.innerHTML = "&#8663;";
-    
+
+
+  let rowE = document.createElement("div");
+  rowE.className = "list-row";
+  rowE.append(buttonE);
+  rowE.append(spanE);
+  rowE.append(aE);
+
+  const imgAE = document.createElement('a');
+  imgAE.href = inURL.toString();
+  imgAE.target = "_blank";
+  imgAE.rel = "noopener";
+  imgAE.title = useTitle;
+  imgAE.className = "link-image-a";
+
+  if ( imageHref ) {
+    const imgE = document.createElement('img');
+    imgE.src = imageHref;
+    imgE.className = "link-image";
+    imgAE.append(imgE);
+  } else {
+    const placeE = document.createElement('div');
+    placeE.className = "link-image-placeholder";
+    imgAE.append(placeE);
+  }
+  rowE.append(imgAE);
+
+
+
   let liE = document.createElement("li");
-  liE.append(buttonE);
-  liE.append(spanE);
-  liE.append(aE);
+  liE.append(rowE);
 
 
-  ulE.append(liE);
+  listE.append(liE);
 }
 
 
 function deleteLink (event) {
-  const liE = event.target.parentElement;
+  const divE = event.target.parentElement;
+  const liE = divE.parentElement;
   const aE = liE.querySelector('a');
   const linkHref = aE.href;
   console.debug('deleteLink: '+linkHref);
@@ -283,9 +247,25 @@ function initAddLinkButton () {
       const clipText = await navigator.clipboard.readText();
 
       var inURL = undefined;
+      var inURLTitle = "";
+      var imageHref = "";
       try {
-        inURL = new URL(clipText);
-
+        console.debug('add link: clipText:', clipText);
+        const matches = clipText.match(/\[InternetShortcut\]\nURL=([^\n]+)(\nTitle=([^\n]+))(\nIconFile=([^\n]+))?/);
+        console.debug('add link: matches:', matches);
+        if ( matches !== null && matches.length > 0) {
+          /*
+          [InternetShortcut]
+          URL=https://introvertdear.com/news/what-ive-learned-about-being-a-quiet-introvert-in-an-extroverted-workplace/
+          Title=What I’ve Learned About Being a Quiet Introvert in an ‘Extroverted’ Workplace
+          */
+          const urlText = matches[1] ?? '';
+          inURLTitle = matches[3] ?? '';
+          imageHref = matches[5] ?? '';
+          inURL = new URL(urlText);
+        } else {
+          inURL = new URL(clipText);
+        }
       } catch (error) {
         console.debug('pasted text is not a URL', error);
       }
@@ -293,8 +273,8 @@ function initAddLinkButton () {
       if ( ! inURL ) {
         alert("No link found in clipboard");
       } else {
-        addURLToSettings(inURL);
-        await addURLToListAsync(inURL);
+        addURLToSettings(inURL, inURLTitle, imageHref);
+        await addURLToListAsync(inURL, inURLTitle, imageHref);
       }
     });
   }

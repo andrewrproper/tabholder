@@ -42,7 +42,147 @@
 	<div id="header-spacer"></div>
 	
 	<div id="links">
-		<button id="add-link">Paste Link</button>
+		<div id="link-buttons">
+			<button id="add-link">Paste Link</button>
+			<div 
+			  id="bookmarklet-wrap" 
+			  title="Drag this bookmarklet link to bookmarks bar, to copy any page's Link and Title. Then you can paste that on this page."
+      >
+			  <span
+				  onclick=" alert(event.target.parentNode.title); "
+				>
+				bookmarklet:
+			  </span>
+				<a 
+					id="bookmarklet-link" 
+					href="
+
+javascript: (
+  async function() {
+      /*
+      ===========
+      bookmarklet
+      ===========
+
+      Copy Current Page's URL and title as .url file (InternetShortcut file) to Clipboard
+
+      ===========
+      This JS can be pasted into a browser bookmark, instead of a URL. Then when the bookmark is
+      clicked, this javascript will run on the current page. 
+      Don't use double-slash comments in this, because it won't work as a bookmarklet. 
+      Every line ending needs a semicolon, because as a bookmarklet it all becomes one line.
+      ===========
+      */
+
+		function toaster (message) {
+
+			const id = 'bookmarklet-toaster';
+			let toasterE = document.getElementById(id);
+			if ( toasterE ) toasterE.remove();
+
+			toasterE = document.createElement('div');
+			toasterE.id = id;
+
+			toasterE.style.border = '2px solid #ccc';
+			toasterE.style.backgroundColor = '#444';
+			toasterE.style.fontSize = '1rem';
+			toasterE.style.padding = '1rem';
+			toasterE.style.margin = '1rem';
+			toasterE.style.maxWidth = '40rem';
+			toasterE.style.maxHeight = '30rem';
+			toasterE.style.position = 'fixed';
+			toasterE.style.right = '3rem';
+			toasterE.style.top = '3rem';
+			toasterE.style.zIndex = '20000';
+			toasterE.style.overflow = 'auto';
+			toasterE.style.whiteSpace = 'pre-wrap';
+			toasterE.style.wordBreak = 'break-all';
+
+
+			const closeE = document.createElement('button');
+      closeE.addEventListener('click', function () {
+				document.getElementById(id).remove(); 
+			});
+			closeE.innerHTML = 'x';
+			closeE.style.fontWeight = 'bold';
+			closeE.style.fontSize = 'larger';
+			closeE.style.position = 'fixed';
+			closeE.style.right = '7rem';
+
+			toasterE.append(closeE);
+
+
+			const titleE = document.createElement('div');
+			titleE.innerHTML = 'CopyLinkInfo';
+
+			titleE.style.border = '2px solid #ccc';
+			titleE.style.backgroundColor = '#444';
+			titleE.style.padding = '1rem';
+			titleE.style.textDecoration = 'underline';
+			titleE.style.fontWeight = 'bold';
+			titleE.style.position = 'fixed';
+
+			toasterE.append(titleE);
+
+			const messageE = document.createElement('div');
+			messageE.innerHTML = message;
+			messageE.style.marginTop = '5rem';
+
+			toasterE.append(messageE);
+
+			const bodies = document.getElementsByTagName('body');
+			bodies?.[0].append(toasterE);
+
+			setTimeout(function () {
+				toasterE.remove();
+			}, 15000);
+
+		}
+
+    let titleText = document.title;
+    let href = location.href;
+
+		let headElements = document.getElementsByTagName('head');
+		/*
+			<meta property='og:image' content='https://introvertdear.com/wp-content/uploads/2023/08/what-ive-learned-about-being-a-quiet-introvert-in-an-extroverted-workplace.jpg' />
+		*/
+		const metaOgImage = headElements?.[0]?.querySelector(`meta[property='og:image']`);
+		let imageHref = '';
+		if ( metaOgImage ) {
+			imageHref = metaOgImage.content ?? '';
+		} else {
+			/* get favicon */
+      /* <link rel='icon' href='https://highlysensitiverefuge.com/wp-content/uploads/2021/08/HSR-favicon-options-12-150x150.png' sizes='32x32' /> */
+			const iconLinks = headElements?.[0]?.querySelector(`link[rel*='*icon']`);
+			imageHref = iconLinks?.[0]?.href ?? '';
+		}
+		if ( imageHref ) {
+			try {
+				const imageURL = new URL(imageHref);
+			} catch {
+				/* if creating a URL object failed, then set prefix */
+				imageHref = new URL( imageHref, location.href ).toString();
+			}
+		}
+
+    var textContent = '[InternetShortcut]\n' +
+		  'URL=' + href + '\n' + 
+		  'Title=' + titleText + '\n' +
+		  'IconFile=' + ( imageHref ?? '' ) + '\n' + 
+			'';
+
+    try {
+      await navigator.clipboard.writeText(textContent);
+      toaster('Copied Link Info to Clipboard: \n\ntitle: ' + titleText + '\n\nlink: ' + href + '\n\nimage: ' + imageHref);
+    } catch (err) {
+      toaster('Failed to copy text to clipboard');
+    }
+  }
+)();
+
+				">CopyLinkInfo</a>
+			</div>
+		</div>
 		<div id="links-title">
 			Links
 		</div>

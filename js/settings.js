@@ -16,6 +16,12 @@ const getTitle = () => {
     titleSuffix = " " + String.fromCodePoint(...settings.titleSuffixChars);
 
 
+  const linksCount = settings?.links?.length ?? 0;
+  let linksText = "";
+  if ( linksCount > 0 ) {
+    linksText = ` (${linksCount} links)`;
+  }
+
   const useTitle = titlePrefix + ( settings.title || "..." ) + titleSuffix;
 
   const titleDisplayLength = useTitle.length;
@@ -35,7 +41,7 @@ const getTitle = () => {
     if ( repeatNum > 0 ) endDelim = conf.endDelimPart.repeat(repeatNum);
   }
 
-  return { useTitle: useTitle, endDelim: endDelim };
+  return { useTitle: useTitle, endDelim: endDelim, linksText: linksText };
 }
 
 
@@ -110,11 +116,11 @@ export const initContentHeight = () => {
   }
 }
 
-export const addURLToSettings = (inURL) => {
+export const addURLToSettings = (inURL, inURLTitle, imageHref) => {
   if ( ! settings.links ) {
     settings.links = [];
   }
-  settings.links.push(inURL.toString());
+  settings.links.push({ 'l': inURL.toString(), 't': inURLTitle ?? '', 'i' : imageHref ?? ''});
   applySettings();
 }
 
@@ -122,7 +128,7 @@ export const removeURLFromSettings = (inURL) => {
   if ( ! settings.links ) {
     settings.links = [];
   } else {
-    settings.links = settings.links.filter(item => item !== inURL.toString());
+    settings.links = settings.links.filter(item => item.l !== inURL.toString());
   }
   applySettings();
 }
@@ -138,7 +144,7 @@ export const applySettings = () => {
   if ( titleElement ) {
     titleElement.innerHTML = titleData.useTitle;
   }
-  document.title = titleData.useTitle + titleData.endDelim;
+  document.title = titleData.useTitle + titleData.endDelim + titleData.linksText;
 
 
   updateURLSearchParams(titleData.useTitle);
