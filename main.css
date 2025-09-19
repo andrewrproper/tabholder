@@ -457,6 +457,10 @@ h1, h2, h3, h4, h5 {
 }
 #links-list li {
   padding: 0;
+  word-break: break-all;
+}
+#links-list li a {
+  word-break: break-all;
 }
 /*
 #links-list li:after {
