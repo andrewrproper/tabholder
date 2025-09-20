@@ -84,6 +84,7 @@ function initSettingsFromURLParams () {
       settings.links = [ ...data.l];
 
       // display links in UI
+      clearURLList();
       for (const entry of settings.links) {
         console.debug('add link to UI:', entry);
         addURLToListAsync(new URL(entry.l), entry.t, entry.i);
@@ -146,6 +147,12 @@ function initOpenDuplicateButton () {
   }
 }
 
+
+function clearURLList () {
+  const listE = document.getElementById("links-list");
+  listE.innerHTML = "";
+}
+ 
 
 async function addURLToListAsync (inURL, inURLTitle, imageHref) {
   console.debug('adding URL to UI:', { inURL: inURL?.toString(), inURLTitle: inURLTitle });
@@ -321,6 +328,18 @@ function initTheme () {
 
 
 
+function initHandleLocationChange () {
+  window.addEventListener('popstate', function(event) {
+    console.log('URL changed via history navigation or state manipulation:', window.location.href);
+    // The event object's state property contains the state object passed to pushState or replaceState
+    console.log('State:', event.state); 
+
+    // apply new URL's SearchParams to the page
+    initSettingsFromURLParams();
+    applySettings();
+  });
+}
+
 
 
 function init () {
@@ -337,6 +356,8 @@ function init () {
   initTitle();
 
   applySettings();
+
+  initHandleLocationChange();
 }
 
 

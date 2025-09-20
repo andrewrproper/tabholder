@@ -97,8 +97,8 @@ export const updateURLSearchParams = (useTitle) => {
   let newURL = new URL(window.location.href);
   newURL.search = searchParams;
 
-  window.history.replaceState({}, useTitle, newURL);
-  //window.history.pushState({}, "", newURL);
+  //window.history.replaceState({}, useTitle, newURL);
+  window.history.pushState({}, "", newURL); /* pushState allows the user to use the back button */
 }
 
 
