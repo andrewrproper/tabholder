@@ -336,7 +336,7 @@ function initHandleLocationChange () {
 
     // apply new URL's SearchParams to the page
     initSettingsFromURLParams();
-    applySettings();
+    /* applySettings(); */ /* don't applySettings() because that will erase going forward again in browser history */
   });
 }
 
