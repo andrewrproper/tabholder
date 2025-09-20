@@ -81,12 +81,10 @@ export const updateURLSearchParams = (useTitle) => {
 
 
   if ( settings.links ) {
-    console.debug("storing settings.links:", settings.links);
     const encodeData = { 
       'l': [ ...settings.links] // convert the Set to an array
      };
     const jsonText = JSON.stringify(encodeData);
-    console.debug("setting jsonText in param.d:", jsonText);
 
     const encodedJSON = encodeURIComponent(jsonText);
     searchParams.set('d', encodedJSON);

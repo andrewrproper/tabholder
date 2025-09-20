@@ -80,13 +80,13 @@ function initSettingsFromURLParams () {
     try {
       const jsonText = decodeURIComponent(paramData);
       const data = JSON.parse(jsonText);
-      console.debug('data from JSON Text from "d" param:', data);
+      //console.debug('data from JSON Text from "d" param:', data);
       settings.links = [ ...data.l];
 
       // display links in UI
       clearURLList();
       for (const entry of settings.links) {
-        console.debug('add link to UI:', entry);
+        //console.debug('add link to UI:', entry);
         addURLToListAsync(new URL(entry.l), entry.t, entry.i);
       }
     }
@@ -138,7 +138,7 @@ function initOpenDuplicateButton () {
 
     // https://www.w3schools.com/howto/howto_js_trigger_button_enter.asp
     button.addEventListener('keypress',  function(event) { 
-      console.debug("key:", event.key);
+      //console.debug("key:", event.key);
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault(); // Cancel the default action, if needed
         openDuplicateWindow();
@@ -155,7 +155,7 @@ function clearURLList () {
  
 
 async function addURLToListAsync (inURL, inURLTitle, imageHref) {
-  console.debug('adding URL to UI:', { inURL: inURL?.toString(), inURLTitle: inURLTitle });
+  //console.debug('adding URL to UI:', { inURL: inURL?.toString(), inURLTitle: inURLTitle });
   const listE = document.getElementById("links-list");
   if ( ! listE ) {
     alert("failed to find #links-list");
@@ -239,7 +239,7 @@ function deleteLink (event) {
   const liE = divE.parentElement;
   const aE = liE.querySelector('a');
   const linkHref = aE.href;
-  console.debug('deleteLink: '+linkHref);
+  //console.debug('deleteLink: '+linkHref);
   if ( linkHref && liE ) {
     removeURLFromSettings(new URL(linkHref));
     liE.remove();
@@ -257,9 +257,9 @@ function initAddLinkButton () {
       var inURLTitle = "";
       var imageHref = "";
       try {
-        console.debug('add link: clipText:', clipText);
+        //console.debug('add link: clipText:', clipText);
         const matches = clipText.match(/\[InternetShortcut\]\nURL=([^\n]+)(\nTitle=([^\n]+))(\nIconFile=([^\n]+))?/);
-        console.debug('add link: matches:', matches);
+        //console.debug('add link: matches:', matches);
         if ( matches !== null && matches.length > 0) {
           /*
           [InternetShortcut]
@@ -330,11 +330,7 @@ function initTheme () {
 
 function initHandleLocationChange () {
   window.addEventListener('popstate', function(event) {
-    console.log('URL changed via history navigation or state manipulation:', window.location.href);
-    // The event object's state property contains the state object passed to pushState or replaceState
-    console.log('State:', event.state); 
-
-    // apply new URL's SearchParams to the page
+    // load new URL's SearchParams and update the page
     initSettingsFromURLParams();
     /* applySettings(); */ /* don't applySettings() because that will erase going forward again in browser history */
   });
